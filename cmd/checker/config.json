@@ -1,7 +1,7 @@
 {
     "run": {
-        "runs": 1000,
-        "time": 10
+        "runs": 1,
+        "time": 1000
     },
     "log": {
         "path" : "/tmp/tendermint/log/checker.log"
@@ -14,7 +14,7 @@
         "algo": "tendermint",
         "num_replicas": 4,
         "transport": {
-            "addr": "192.168.0.4:7074"
+            "addr": "192.168.0.145:7074"
         }
     }
 }
