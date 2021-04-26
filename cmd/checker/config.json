@@ -7,7 +7,7 @@
         "path" : "/tmp/tendermint/log/checker.log"
     },
     "engine" : {
-        "type" : "no-op"
+        "type" : "issue"
     },
     "driver": {
         "type": "common",

@@ -1,7 +1,9 @@
-package nop
+package issue
 
 import (
 	"github.com/ds-test-framework/scheduler/pkg/types"
+	"github.com/gogo/protobuf/proto"
+	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 )
 
 // NopScheduler does nothing. Just returns the incoming message in the outgoing channel
@@ -43,9 +45,16 @@ func (n *IssueScheduler) poll() {
 	for {
 		select {
 		case m := <-n.inChan:
-			go func(m *types.MessageWrapper) {
-				n.outChan <- m
-			}(m)
+			var msg []byte = m.Msg.Clone().Msg
+			precommit := new(tmproto.Vote)
+			// bs, err := proto.Marshal(v)
+			// require.NoError(t, err)
+			var err = proto.Unmarshal(msg, precommit)
+			if err != nil {
+				go func(m *types.MessageWrapper) {
+					n.outChan <- m
+				}(m)
+			}
 		case <-n.stopCh:
 			return
 		}
